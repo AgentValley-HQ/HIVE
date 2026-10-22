@@ -2,7 +2,7 @@
   <img src="Docs/hero.png" alt="H.I.V.E Command Center — 3D agent hub with Brain, Intel Radar, War Room, Brand Foundry and Launchpad orbiting a central HIVE CORE" width="900" />
 </p>
 
-<h1 align="center">H.I.V.E <span>//</span> Agentic OS</h1>
+<h1 align="center">H.I.V.E <span></span></h1>
 
 <p align="center">
   An autonomous, <b>local-first</b> marketing orchestrator.<br/>
