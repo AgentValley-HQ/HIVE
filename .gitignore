@@ -1,0 +1,22 @@
+# node + build output
+node_modules/
+.next/
+
+# env + secrets (NEVER commit)
+.env
+.env.local
+.env.*.local
+
+# runtime state + generated creative — be aggressive, catch any prefix
+agentic-os/tasks.json
+agentic-os/tasks.json.tmp
+agentic-os/public/generated-ads/*.png
+agentic-os/public/generated-ads/*.html
+agentic-os/public/uploads/
+agentic-os/public/intel-thumbs/
+agentic-os/tsconfig.tsbuildinfo
+
+# logs + OS cruft
+*.log
+.DS_Store
+Thumbs.db

@@ -1,0 +1,10 @@
+node_modules
+.next
+.env
+.env.local
+.env.*.local
+public/generated-ads/slide_*.png
+public/generated-ads/slide_*.html
+tasks.json
+*.log
+.DS_Store

@@ -1,0 +1,407 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ────────────────────────────────────────────────────────────────────────
+   H.I.V.E // OS — Orange-ember on black theme.
+   All color tokens here resolve to orange or black. Semantic names
+   (neon-cyan, neon-magenta etc.) are kept in tailwind.config.js and
+   remapped to orange shades so the component tree needs zero changes.
+   ──────────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg: #070504;
+  --panel: #0d0906;
+  --edge: rgba(255, 138, 0, 0.22);
+  --neon: #ff8a00;
+  --ember: #ff4d00;
+  --glow: #ffb347;
+  --deep: #ff6a00;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: #050505;
+  color: #e4e4e4;
+  font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+  overflow-x: hidden;
+}
+
+body {
+  /* Minimal flat near-black. No orange ambient wash — only the Command
+     Center view carries color accents. */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 40px 40px, 40px 40px;
+  background-attachment: fixed;
+}
+
+/* Scrollbar — ember on black */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0604;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #ff8a0055, #ff4d0055);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ff8a0099, #ff4d0099);
+}
+
+/* Reusable panel — neutral dark, no color accent */
+.panel {
+  position: relative;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.9), rgba(10, 10, 10, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.7);
+}
+
+.panel::before {
+  display: none; /* no color sheen on panels */
+}
+
+/* Corner brackets — neutral white */
+.bracket {
+  position: relative;
+}
+.bracket::before,
+.bracket::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(255, 255, 255, 0.3);
+  border-style: solid;
+  border-width: 0;
+}
+.bracket::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+.bracket::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+/* Text glows — only the Command Center wordmark/badge keeps a visible glow.
+   Agent chambers now use plain white text with no glow. */
+.neon-text {
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.3),
+    0 0 20px rgba(255, 255, 255, 0.12);
+}
+
+.neon-text-magenta {
+  text-shadow: none;
+}
+
+/* Scanline — disabled (user requested removal of the orange scan) */
+.scanline {
+  display: none;
+}
+
+/* Noise overlay */
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  z-index: 50;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.9'/></svg>");
+}
+
+/* Status pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid currentColor;
+}
+
+/* Primary button — neutral white */
+.btn-neon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+  color: #f5f5f5;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+  transition: all 0.18s ease;
+  cursor: pointer;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+.btn-neon:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.04);
+  transform: translateY(-1px);
+}
+.btn-neon:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Variant buttons — all neutral, slight gradient differences for hierarchy */
+.btn-magenta {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  border-color: rgba(255, 255, 255, 0.22);
+}
+.btn-magenta:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.btn-lime {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+.btn-lime:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 0 24px rgba(255, 255, 255, 0.14),
+    inset 0 0 24px rgba(255, 255, 255, 0.05);
+}
+
+.btn-amber {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.btn-amber:hover {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Danger — only "colored" button, muted red to make destructive actions obvious */
+.btn-danger {
+  background: linear-gradient(180deg, rgba(180, 50, 50, 0.18), rgba(100, 20, 20, 0.05));
+  color: #ffb8b8;
+  border-color: rgba(220, 80, 80, 0.5);
+  box-shadow: inset 0 0 20px rgba(180, 50, 50, 0.08);
+}
+.btn-danger:hover {
+  background: linear-gradient(180deg, rgba(200, 60, 60, 0.26), rgba(120, 25, 25, 0.08));
+  box-shadow:
+    0 0 20px rgba(220, 80, 80, 0.25),
+    inset 0 0 20px rgba(180, 50, 50, 0.12);
+}
+
+/* Input — neutral white edge on black */
+.input-neon {
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #f5f5f5;
+  padding: 10px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  transition: all 0.18s ease;
+}
+.input-neon:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.08);
+}
+
+/* Radar sweep — subtle white cone */
+.radar-sweep {
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    rgba(255, 255, 255, 0.14) 20deg,
+    transparent 40deg
+  );
+  animation: sweep 4s linear infinite;
+  mix-blend-mode: screen;
+}
+@keyframes sweep {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Label chip — neutral */
+.chip {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #e5e5e5;
+  border-radius: 4px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   Command Center — active connector flow animation
+   ──────────────────────────────────────────────────────────────────── */
+
+@keyframes cc-flow {
+  to {
+    stroke-dashoffset: -32;
+  }
+}
+
+.cc-flow-line {
+  animation: cc-flow 1.2s linear infinite;
+}
+
+/* Pulsing opacity for the SVG terminator circle — no transform/scale, so
+   it doesn't require transform-origin fiddling in SVG coord space. */
+@keyframes cc-dot-pulse {
+  0%, 100% { opacity: 0.2; }
+  50%      { opacity: 0.6; }
+}
+.cc-dot-pulse {
+  animation: cc-dot-pulse 1.4s ease-in-out infinite;
+}
+
+/* Pulsing BORDER glow for the active agent CARD — scales nothing so the
+   card's drag hitbox stays steady. */
+@keyframes cc-card-pulse {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.15);
+  }
+}
+.cc-card-pulse {
+  animation: cc-card-pulse 1.6s ease-in-out infinite;
+}
+
+/* One-shot flash when an agent transitions from LOCKED → UNLOCKED.
+   Short burst of brightness + saturation to draw the eye. */
+@keyframes cc-unlock-flash {
+  0% {
+    filter: brightness(2.4) saturate(2);
+  }
+  40% {
+    filter: brightness(1.6) saturate(1.4);
+  }
+  100% {
+    filter: brightness(1) saturate(1);
+  }
+}
+.cc-unlock-flash {
+  animation: cc-unlock-flash 1.8s ease-out 1;
+}
+
+/* Fade in */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ────────────────────────────────────────────────────────────────────────
+   3D Command Center — perspective transforms for the agent panels.
+   Lightweight CSS 3D (no three.js) — real depth, GPU-accelerated.
+   ──────────────────────────────────────────────────────────────────── */
+
+.cc-stage {
+  perspective: 1600px;
+  perspective-origin: 50% 32%;
+}
+
+.cc-floor {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 138, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 138, 0, 0.12) 1px, transparent 1px),
+    radial-gradient(circle at 50% 100%, rgba(255, 138, 0, 0.18), transparent 60%);
+  background-size: 60px 60px, 60px 60px, auto;
+  transform: rotateX(72deg) translateZ(-80px) scale(1.6);
+  transform-origin: 50% 100%;
+  mask-image: linear-gradient(180deg, transparent, black 20%, black);
+  animation: gridShift 20s linear infinite;
+}
+
+.cc-node {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(.2,.9,.3,1.4), box-shadow 0.3s ease;
+}
+
+.cc-node:hover {
+  transform: translateZ(40px) scale(1.04);
+}
+
+.cc-node .cc-glow {
+  position: absolute;
+  inset: -14px;
+  border-radius: 14px;
+  background: radial-gradient(circle, rgba(255, 138, 0, 0.35), transparent 70%);
+  filter: blur(14px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+
+.cc-pedestal {
+  background: linear-gradient(180deg, rgba(255, 138, 0, 0.14), rgba(255, 77, 0, 0.02));
+  border: 1px solid rgba(255, 138, 0, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(255, 138, 0, 0.1) inset,
+    0 20px 60px -20px rgba(255, 106, 0, 0.5),
+    0 0 40px rgba(255, 138, 0, 0.15);
+}
+
+.cc-arc {
+  stroke: rgba(255, 138, 0, 0.3);
+  stroke-dasharray: 4 6;
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+
+/* Rim-light edge for the primary agent panels */
+.cc-rim {
+  box-shadow:
+    0 0 0 1px rgba(255, 138, 0, 0.5) inset,
+    0 0 40px rgba(255, 138, 0, 0.18),
+    0 0 90px rgba(255, 77, 0, 0.1);
+}
